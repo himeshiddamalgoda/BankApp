@@ -6,6 +6,7 @@ module.exports = mongoose => {
         accountId: String,
         transactionType: String,
         amount: Number,
+        beneficiaryId:String,
       },
       { timestamps: true }
     );
