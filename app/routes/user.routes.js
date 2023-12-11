@@ -82,5 +82,45 @@ module.exports = (app) => {
     }
   });
 
+  router.put("/:accountId", async (req, res) => {
+    try {
+      const userAccountId = req.params.accountId;
+      const { transactionType, accountBalance } = req.body;
+  
+      console.log("Received user update details:", req.body);
+  
+      if (!transactionType || !accountBalance) {
+        return res.status(400).json({ error: "Transaction details are incomplete" });
+      }
+  
+      // Find the user based on the accountId
+      const user = await User.findOne({ accountId: userAccountId });
+  
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      // Update the account balance based on the transaction type
+      if (transactionType === "credit") {
+        user.accountBalance += parseFloat(accountBalance);
+      } else if (transactionType === "debit") {
+        user.accountBalance -= parseFloat(accountBalance);
+      } else {
+        return res.status(400).json({ error: "Invalid transaction type" });
+      }
+  
+      // Save the updated user
+      const updatedUser = await user.save();
+  
+      console.log("Updated user details:", updatedUser);
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+  
+  
+
   app.use("/api/users", router);
 };
