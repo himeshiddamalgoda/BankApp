@@ -62,5 +62,6 @@ db.mongoose
 require("./app/routes/turorial.routes")(app);
 require("./app/routes/transaction.routes")(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/file.routes")(app);
 
 module.exports = app;
