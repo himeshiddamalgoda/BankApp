@@ -1,7 +1,7 @@
 const sgMail = require("@sendgrid/mail");
 
 const sendgridApiKey =
-  "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";
+  "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";
 const sendgridSenderId = "himeshdev99@gmail.com";
 sgMail.setApiKey(sendgridApiKey);
 
